@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<title>success</title>
+<style>
+    html,body{
+        margin: 0;
+        padding: 10px;
+        background-color:#6589c4;
+       text-align: center;
+    }
+    .flex-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 3%;
+    }
+    
+    .flex-container > div {
+      margin: 0px;
+    }
+h1 {
+          color: rgb(7, 179, 141);
+          font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+          font-size: 40px;
+          margin-bottom: 15px;
+          letter-spacing: 5px;
+        }
+        p {
+          color: #404F5E;
+          font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+          color: white;
+          font-size: 15px;
+          margin-bottom: 80px;
+          margin-top: 20px;
+          letter-spacing: 0.8px;
+          word-spacing: 3px;
+        }
+      i {
+        color:  rgb(7, 179, 141);
+        font-size: 100px;
+        line-height: 200px;
+        margin-left:-15px;
+
+        
+      }
+      
+      .card {
+        background: white;
+        padding: 60px;
+        border-radius: 4px;
+        box-shadow: 0 2px 3px #C8D0D8;
+        display: inline-block;
+        
+      }
+      .button {
+  position: relative;
+  background-color:  rgb(7, 179, 141); 
+  border: none;
+  border-radius: 5px;
+  font-size: 20px;
+  color: #FFFFFF;
+  padding: 15px;
+  margin-top: 30px;
+  width: 100%;
+  text-align: center;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+}
+     
+  .button:after {
+  content: "";
+  background: #B6C0C5;
+  display: block;
+  position: absolute;
+  padding-top: 300%;
+  padding-left: 350%;
+  margin-left: -20px!important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s
+}
+
+.button:active:after {
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s
+}
+
+a{
+  color: rgb(34, 33, 33);
+  position: relative;
+  top: 50px;
+}
+a:hover{
+    color: #112d60;
+}
+@media screen and (max-width:600px) {
+  .flex-container > div {
+      max-width: 70%;
+    }
+    .flex-container{
+  justify-content: center;
+  align-items: center;
+  margin-top:10% ;
+}
+}
+</style>
+</head>
+<body>
+<div class="flex-container">
+   <div class="container">
+      
+        <div >
+          <div >
+           <h1>Success!</h1> 
+           
+           <!--
+           <p> your account have been created, and account activation link have been sent to your email.</p>
+           -->
+           
+           
+            {% if messages %}
+            
+             {% for message in messages %}
+             <p>{{ message }}</p>
+              {% endfor %}
+              
+              {% endif %}
+              
+            <p>{{msg}}</p>
+        
+           
+            <div style="border-radius:200px;border:5px solid  rgb(7, 179, 141); height:200px; width:200px; background:white; margin:0 auto;">
+            <i class="checkmark">✓</i>
+             </div>   
+             <a href="{% url "app:panel" %}"><button class="button">continue</button></a>  
+             </div>
+            </div>
+    </div>
+      
+</body>
+</html>

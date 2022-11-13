@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>whoops</title>
+<style>
+    html,body{
+        margin: 0;
+        background-color: #6589c4;
+    }
+.flex-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  margin: 15%;
+}
+
+.container h5{
+margin-bottom: 40px;
+}
+.container p{
+    font-size: 17px;
+    color: white;
+}
+@media screen and (max-width:600px) {
+  .flex-container > div {
+      max-width: 80%;
+      margin-top: 9%;
+      padding: 20px;
+      border-radius: 12px;
+    }
+
+.container p{
+    font-size: 15px;
+}
+}
+</style>
+</head>
+<body>
+<div class="flex-container">
+  <div class="container">
+    <h3>Verification Failed</h3>
+    <h5><a href="{% url "request-new-link-from-email" %}">Resend a new Verification email</a></h5> 
+    <p >If this problem persists please contact our Support-Team</p> 
+    
+  </div>
+</div>
+
+</body>
+</html>
+
+

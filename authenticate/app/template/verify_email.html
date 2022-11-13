@@ -1,0 +1,256 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>welcome</title>
+    <style>
+        a > img {
+            width: 28px;
+        }
+        
+        a > img:hover {
+            opacity: 0.7;
+        }
+        
+        .social-icon {
+           margin-top: 40px;
+        }
+        
+        .social-icon > a {
+          text-decoration: none;
+          margin: 5px;
+        }
+        
+        #insta {
+          transform: scale(1.3);
+        }
+        
+        #tweet {
+          transform: scale(1.1);
+        }
+       
+        
+        
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .flex-container {
+            display: grid;
+            justify-content: center;
+            align-items: center;
+            background-color: #6589c4;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: scroll;
+        }
+        
+        .container {
+            background-color: white;
+            width: 650px;
+            padding: 10px 10px 40px 15px;
+            border: 3px solid rgb(165, 163, 163);
+            text-align: center;
+            margin: auto;
+            margin-top: 60px;
+        }
+       
+        
+        h3, h2 {
+            text-align: left;
+            margin: 0;
+            font-size: 16px;
+            font-weight: bold;
+            opacity: 0.7;
+        }
+        
+       h3 {
+         margin-bottom: 10px;
+       }
+  
+        
+        .container p {
+            text-align: left;
+            font-size: 13px;
+            color: rgb(51, 46, 46);
+            margin: 0;
+            letter-spacing: 0.8px;
+            line-height: 1.5;
+        }
+        
+        .footer {
+            text-align: center;
+            font-size: 18px;
+            padding: 30px;
+        }
+        
+        .footer p {
+            padding-top: 5px;
+            margin: 0;
+            font-size: 14px;
+        }
+        
+        .lin {
+            padding-top: 15px;
+            padding-bottom: 20px;
+        }
+        
+        .avartarr {
+            vertical-align: middle;
+            width: 120px;
+            height: 130px;
+            border-radius: 50%;
+        }
+        
+        .head {
+            display: flex;
+            justify-content: center;
+            padding: 30px;
+        }
+        
+        .avrt {
+            vertical-align: middle;
+            width: 60px;
+            height: 60px;
+            text-align: center;
+        }
+        
+        
+        
+        a:hover,
+        a:active {
+            color: #626264;
+        }
+        
+        .button {
+            position: relative;
+            background-color: #112d60;
+            border: none;
+            letter-spacing: 0px;
+            font-size: 14px;
+            font-weight: bolder;
+            color: #FFFFFF;
+            padding: 17px;
+            width: 40%;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            text-align: center;
+            -webkit-transition-duration: 0.4s;
+            /* Safari */
+            transition-duration: 0.4s;
+            text-decoration: none;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .button:after {
+            content: "";
+            background: #B6C0C5;
+            display: block;
+            position: absolute;
+            padding-top: 300%;
+            padding-left: 350%;
+            margin-left: -20px!important;
+            margin-top: -120%;
+            opacity: 0;
+            transition: all 0.8s
+        }
+        
+        .button:active:after {
+            padding: 0;
+            margin: 0;
+            opacity: 1;
+            transition: 0s
+        }
+        
+        #welcome {
+          width: 250px;
+          height: 50px;
+          margin-top: 10px;
+        }
+       
+        
+        @media screen and (max-width:600px) {
+            .flex-container>div {
+                margin: 6px;
+                padding: 20px;
+                border-radius: 12px;
+            }
+            
+            .container {
+                width: 90%;
+            }
+        
+            .button {
+                position: relative;
+                background-color: #112d60;
+                border: none;
+                letter-spacing: 0px;
+                font-size: 12px;
+                font-weight: bolder;
+                color: #FFFFFF;
+                padding: 17px;
+                width: 56%;
+                text-align: center;
+                -webkit-transition-duration: 0.4s;
+                /* Safari */
+                transition-duration: 0.4s;
+                text-decoration: none;
+                overflow: hidden;
+                cursor: pointer;
+            }
+        
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="flex-container">
+
+        <form>
+            <div class="container">
+                
+            <img id="welcome" src="https://res.cloudinary.com/dlchc4ilj/image/upload/v1664814572/welcome_lxuelm.png", alt="welcome">
+               <br><br>
+                <h2 style="font-weight:0px;color: #587ab8; font-family:Courier New, monospace;">Hello {{ user.username }},</h2><br>
+                <p style="color: #112d60;">Thanks for joining. We're really excited to have you on board.
+                </p>
+                <button type="submit" class="button"><a href="#" style="text-decoration:none; font-size:12px; color: white;">ACTIVATE YOUR ACCOUNT</a></button>
+                
+                <h3>Have a question?</h3>
+               
+                <p style="padding-bottom: 10px;">Check our <a href="#">Knowledge Base</a> for a quick answer.</p>
+                <p>You can always contact <a href="#">24/7 support team</a> via live chat and email, We will be happy to help you! </p>
+                
+            </div>
+        </form>
+        <div class="footer">
+
+            <p> &copy; 2022 VTU 24, Hubert st, All rights reserved</p>
+            <p> 123 incredible Street, SomeTown, OR, 87466 US, (123) 456-7899</p>
+
+            <div class="social-icon">
+                <a href="#">
+                  <img src="https://res.cloudinary.com/dlchc4ilj/image/upload/v1664814113/facebook_d4qvvy.png "/>
+                <a href="#">
+                  <img id="tweet" src="https://res.cloudinary.com/dlchc4ilj/image/upload/v1664814536/twitter_cyyt7v.png" />
+                </a>
+                <a href="#">
+                  <img id="insta" src="https://res.cloudinary.com/dlchc4ilj/image/upload/v1664814556/instagram_fah3ng.png" />
+                </a>
+            </div>
+           
+        </div>
+    </div>
+
+</body>
+
+</html>

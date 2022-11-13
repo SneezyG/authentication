@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.css">
+    <title>dashboard</title>
+    
+    <style>
+    
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f8;
+            color: rgb(60, 54, 66);
+        }
+      
+   
+        label {
+            font-size: 20px;
+            margin: 0;
+            padding: 0;
+        }
+        
+        hr {
+            margin: 10px 0px 35px 0px;
+        }
+        
+        p {
+            margin: 0;
+            padding: 10px 0px 0px 0px;
+            font-size: 17px;
+        }
+        
+        .avartar {
+            vertical-align: middle;
+            width: 120px;
+            height: 130px;
+            border-radius: 50%;
+        }
+        
+      
+        
+        input[type=text],
+        input[type=email],
+        input[type=password] {
+            display: block;
+            box-sizing: border-box;
+            font-size: 16px;
+            background-color: white;
+            border: none;
+            border-bottom: 1px solid rgb(155, 153, 153);
+            padding: 12px 5px;
+            margin: 5px 0 20px 0;
+        }
+        
+        .custom-file-input::-webkit-file-upload-button {
+            visibility: hidden;
+        }
+        
+
+        .custom-file-input::before {
+            border: none;
+            border-radius: 7px;
+            font-size: 12px;
+            color: #FFFFFF;
+            padding: 10px 40px;
+            margin-top: 20px;
+            margin-bottom: 0px;
+            text-align: center;
+            -webkit-transition-duration: 0.4s;
+            /* Safari */
+            transition-duration: 0.4s;
+            text-decoration: none;
+            cursor: pointer;
+            content: 'Upload';
+            display: inline-block;
+            background-color: #112d60;
+        }
+        
+        .custom-file-input:active::before {
+            background-color: #112d60;
+        }
+        
+        input:focus {
+            background-color: rgb(250, 250, 250);
+            outline: none;
+        }
+        
+         ::placeholder {
+            color: #bbbdbb;
+            opacity: 1;
+            /* Firefox */
+            font-size: 17px;
+        }
+        
+         :-ms-input-placeholder {
+            /* Internet Explorer 10-11 */
+            color: #bbbdbb
+        }
+        
+         ::-ms-input-placeholder {
+            /* Microsoft Edge */
+            color: #bbbdbb
+        }
+        
+        .button {
+            position: relative;
+            background-color: #112d60;
+            border: none;
+            font-size: 20px;
+            color: #FFFFFF;
+            padding: 15px 50px;
+            margin-top: 30px;
+            text-align: center;
+            -webkit-transition-duration: 0.4s;
+            /* Safari */
+            transition-duration: 0.4s;
+            text-decoration: none;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        a:link,
+        a:visited {
+            text-decoration: none;
+            font-size: 16px;
+        }
+        
+        a:hover,
+        a:active {
+            color: #112d60;
+        }
+        
+        .change {
+            align-self: center;
+        }
+        
+        h3 {
+            font-size: 18px;
+            margin: 0;
+            padding: 0;
+        }
+        
+   
+
+    </style>
+</head>
+
+<body>
+   <form>
+        <div class="trite">
+          <img src="avartar.jpg" alt="Avatar" class="avartarr">
+   
+            <!-- The `multiple` attribute lets users select multiple files. -->
+
+            <input type="file" class="custom-file-input">
+        </div>
+          
+               
+        <label for="fname">FirstName</label>
+        <input type="text" placeholder="Firstname">
+        <label for="fname">LastName</label>
+        <input type="text" placeholder="Lastname">
+        <label for="fname">Username</label>
+        <input type="text" placeholder="Username">
+
+
+        <hr>
+                
+        <p class="para">your email address is <a href="#">sneezymoney@gmail.com</a> </p>
+
+            
+        <hr>
+
+
+                  
+        <p>Password <span style="font-weight: bold;">XXXX-XXXX-XXXX</span></p>
+        <div class="change"><a href="#">change</a></div>
+        
+        
+        <hr>
+        
+        
+         <a href="# ">Delete my account</a>
+         <button type="submit " class="button ">SAVE</button>
+       
+           
+     </form>
+
+  
+</body>
+
+</html>

@@ -1,0 +1,305 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+<title>layout</title>
+<style>
+    html,body{
+        margin: 0;
+        padding: 0;
+        background-color:#6589c4;
+       
+    }
+    
+    #logo {
+      width: 50px;
+      height: 50px;
+      margin: 40px 0 0 10%;
+      transform: scale(3);
+    }
+    
+    label {
+      position: relative;
+      top: 4px;
+      font-size: 15px; 
+    }
+    
+    #help {
+      display: block;
+      font-size: 11px;
+      color: #112d60;
+      margin: 0 0 7px 5px;
+    }
+  
+    
+    li {
+      font-size: 11px;
+      color: red;
+    }
+    
+    ul {
+      position: relative;
+      top: 5px;
+      margin-bottom: 0;
+    }
+    
+    #confirmerror{
+      position: relative;
+      top: 12px;
+      left: 28px
+    }
+    
+    .flex-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 80px
+    }
+    
+    .flex-container > div {
+      background-color: white;
+      max-width: 400px;
+      margin: 20px;
+      padding: 20px;
+      border-radius: 12px;
+    }
+    .container{ 
+        border: 3px solid rgb(209, 208, 208);
+        box-shadow: 2px 2px 10px rgb(255, 255, 255);
+    }
+hr{
+  margin-bottom: 10px;
+}
+h3{
+  text-align: center;
+  color: #112d60;
+}
+
+#cond {
+  font-size: 14px;
+}
+
+p{
+  text-align: center;
+  margin-top: 55px;
+  font-size: 14px;
+}
+input[type=text],input[type=email],input[type=password] {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 15px;
+  background-color: white;
+  border: none;
+  border-bottom: 1px solid rgb(155, 153, 153);
+  padding: 12px 5px 8px 5px;
+  margin: 11px 0 8px 0;
+}
+
+input:focus{
+   outline:none;
+}
+
+
+.button {
+  position: relative;
+  background-color:#112d60;
+  border: none;
+  border-radius: 40px;
+  font-size: 18px;
+  color: #FFFFFF;
+  padding: 15px;
+  margin-top: 30px;
+  margin-bottom: 13px;
+  width: 100%;
+  text-align: center;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.button:after {
+  content: "";
+  background: #B6C0C5;
+  display: block;
+  position: absolute;
+  padding-top: 300%;
+  padding-left: 350%;
+  margin-left: -20px!important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s
+}
+
+.button:active:after {
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s
+}
+
+#togglePassword {
+  cursor: pointer; 
+  padding: 5px;
+  margin-top: 15px;
+  font-size: 18px;
+}
+
+#repeat {
+  display: flex;
+  margin: 0px;
+  margin-top: 3px;
+  border-bottom: 1px solid rgb(155, 153, 153);
+}
+
+#passRepeat {
+  border: none;
+  outline: none;
+  margin-bottom: 0;
+  font-size: 15px;
+}
+
+
+@media screen and (max-width:600px) {
+  .flex-container > div {
+     
+      max-width: 75%;
+      padding: 20px;
+      border-radius: 12px;
+    }
+     #togglePassword {
+     cursor: default; 
+    }
+}
+</style>
+</head>
+
+
+
+
+
+
+
+
+
+<body>
+
+    <img id="logo" src="{% static 'app/logo/white.png'%}", alt="VTUme"> 
+   
+    
+    <div class="flex-container">
+        <div class="container">
+            <form action="{% url "app:signup" %}" method="post" onsubmit="return validateForm()">
+              {% csrf_token %}
+                <div >
+                  <h3>CREATE ACCOUNT</h3>
+
+         {% for field in form %}   
+         {{ field.label_tag }}
+            {{ field.errors }}
+            {{ field }}
+          {% if field.help_text %}
+          <span id="help">{{ field.help_text|safe }}</span> 
+          {% endif %}
+           {% endfor %}  
+                  
+                <label for="passRepeat"> Confirm password: </label>
+               
+                <li id="confirmerror"> 
+                 <pre>• Your password don't match</pre>
+                </li>
+                     
+                  <p id="repeat">
+                  <input type="password"  id="passRepeat" name="repeat" required>
+                  <i class='fa fa-eye' id="togglePassword"></i>
+                  </p>
+                
+                  
+                  
+                  
+                  <br>
+                  <br>
+                  <label>
+                    <input type="checkbox" checked="checked" name="remember">
+                    <span id="cond">I agree to all statements in <a href="#">Terms of service</a>
+                    </span>
+                  </label>   
+                  
+                    <input type="submit" class="button" value="Sign Up">
+                    
+                </div>
+                <p>Already have an account? <a href="{% url "app:login" %}">Login here</a> </p>
+            </form>
+        </div>
+    </div>
+  
+    <script>
+    
+const togglePassword = document.querySelector('#togglePassword');
+const password = document.querySelector('#id_password');
+const repeat = document.querySelector('#passRepeat');
+const help = document.querySelector("#help");
+const confirm = document.querySelector('#confirmerror');
+confirm.style.display= "none";
+
+
+function validateForm() {
+  
+  if (password.value == repeat.value) {
+    return validator(password.value);
+  }
+  else{
+    confirm.style.display= "block";
+    return false
+  }
+ 
+}
+
+
+function validator(value) {
+  
+   const patternA =  /[0-9]/;
+   const patternB = /[a-zA-Z]/;
+   
+   if (value.length < 9) {
+     help.style.color= "red";
+     return false;
+   }
+   
+   findA = patternA.test(value);
+   if (!findA) {
+     help.style.color= "red";
+     return false;
+   }
+   
+   findB = patternB.test(value);
+   if (!findB) {
+     help.style.color= "red";
+     return false;
+   }
+   
+   return true;
+   
+}
+
+
+
+
+
+togglePassword.addEventListener('click', function (e) {
+// toggle the type attribute
+const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+password.setAttribute('type', type);
+repeat.setAttribute('type', type);
+// toggle the eye slash icon
+this.classList = password.getAttribute('type') === 'text' ? 'fas fa-eye-slash' :  'fa fa-eye';
+});
+
+
+     </script>    
+</body>
+</html>
