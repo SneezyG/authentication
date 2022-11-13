@@ -14,30 +14,78 @@
             padding: 0;
             background-color: #f7f7f8;
             color: rgb(60, 54, 66);
+            overflow-x: hidden;
         }
-      
+        
+       header {
+         background-color: #6589c4;
+         position: fixed;
+         width: 100%;
+       }
+        
+       #logo {
+        width: 35px;
+        margin: 15px 0 10px 10%;
+        transform: scale(2);
+       }
+       
+       #verify {
+         display: inline;
+         float: right;
+         margin-right: 10%;
+       }
+       
+       #verify > img {
+         width: 20px;
+       }
+       
+       #verify > span {
+         position: relative;
+         bottom: 5px;
+         font-size: 13px;
+       }
+        
+        main {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-top: 90px;
+          padding: 0 0 60px 0;
+        }
+       
+        form > span {
+          font-size: 14px;
+        }
+        
+        form {
+          width: 60%;
+        }
    
         label {
-            font-size: 20px;
-            margin: 0;
-            padding: 0;
+          font-size: 16px;
+          color: #112d60;
         }
         
         hr {
-            margin: 10px 0px 35px 0px;
+           margin: 10px 0px 35px 0px;
+           width: 90%;
         }
         
-        p {
+        hr#first {
+          width: 100%;
+        }
+        
+        .para {
+            width: 80%;
             margin: 0;
-            padding: 10px 0px 0px 0px;
-            font-size: 17px;
+            padding: 10px 0px 0px 10px;
+            font-size: 16px;
         }
         
         .avartar {
-            vertical-align: middle;
             width: 120px;
-            height: 130px;
-            border-radius: 50%;
+            border-radius: 50px;
+            margin-bottom: 10px;
         }
         
       
@@ -46,76 +94,49 @@
         input[type=email],
         input[type=password] {
             display: block;
-            box-sizing: border-box;
-            font-size: 16px;
-            background-color: white;
+            width: 100%;
+            font-size: 14px;
+            background-color: #f7f7f8;
             border: none;
             border-bottom: 1px solid rgb(155, 153, 153);
-            padding: 12px 5px;
+            padding: 10px 5px;
             margin: 5px 0 20px 0;
         }
         
-        .custom-file-input::-webkit-file-upload-button {
-            visibility: hidden;
-        }
-        
-
-        .custom-file-input::before {
-            border: none;
-            border-radius: 7px;
-            font-size: 12px;
-            color: #FFFFFF;
-            padding: 10px 40px;
-            margin-top: 20px;
-            margin-bottom: 0px;
-            text-align: center;
-            -webkit-transition-duration: 0.4s;
-            /* Safari */
-            transition-duration: 0.4s;
-            text-decoration: none;
-            cursor: pointer;
-            content: 'Upload';
-            display: inline-block;
-            background-color: #112d60;
-        }
-        
-        .custom-file-input:active::before {
-            background-color: #112d60;
-        }
-        
         input:focus {
-            background-color: rgb(250, 250, 250);
             outline: none;
         }
         
-         ::placeholder {
-            color: #bbbdbb;
-            opacity: 1;
-            /* Firefox */
-            font-size: 17px;
+        .visually-hidden {
+          position: absolute !important;
+          background-color: red;
+          height: 1px;
+          width: 1px;
+          overflow: hidden;
+          clip: rect(1px, 1px, 1px, 1px);
+        }
+
+       input.visually-hidden:is(:focus, :focus-within) + label {
+         outline: thin dotted;
+        }
+    
+       #browse {
+         cursor: pointer;
+         text-decoration: underline;
+         font-size: 14px;
         }
         
-         :-ms-input-placeholder {
-            /* Internet Explorer 10-11 */
-            color: #bbbdbb
-        }
-        
-         ::-ms-input-placeholder {
-            /* Microsoft Edge */
-            color: #bbbdbb
-        }
-        
+
         .button {
-            position: relative;
             background-color: #112d60;
             border: none;
-            font-size: 20px;
+            border-radius: 5px;
+            font-size: 13px;
             color: #FFFFFF;
-            padding: 15px 50px;
-            margin-top: 30px;
+            padding: 15px 30px;
+            margin-top: 10px;
+            margin-bottom: 30px;
             text-align: center;
-            -webkit-transition-duration: 0.4s;
-            /* Safari */
             transition-duration: 0.4s;
             text-decoration: none;
             overflow: hidden;
@@ -133,15 +154,77 @@
             color: #112d60;
         }
         
-        .change {
-            align-self: center;
+        #delete {
+          color: red;
         }
         
-        h3 {
-            font-size: 18px;
-            margin: 0;
-            padding: 0;
+        #pass > a {
+           float: right;
         }
+        
+        #email > span {
+          color: #112d60;
+        }
+        
+        
+        #confirmDelete {
+          border: 1px solid #112d60;
+          width: 50%;
+          margin-top: 20px;
+          visibility: hidden;
+          border-radius: 5px;
+          padding: 10px 10px 10px 10px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        
+        #confirmDelete > input {
+          width: 80%;
+          margin: 0 0 20px 0;
+          border: 1px solid rgb(155, 153, 153);
+          border-radius: 15px;
+          padding-left: 20px;
+        }
+        
+        #info {
+          margin: 0 0 10px 0;
+          padding: 0;
+          font-size: 15px;
+        }
+        
+        #error {
+          font-size: 13px;
+          margin: 0 0 10px 0;
+          padding: 0;
+          color: red;
+          text-align: center;
+          display: none;
+        }
+        
+        #confirmDelete > button {
+          color: white;
+          background-color: red;
+          outline: none;
+          border: none;
+          padding: 10px;
+          border-radius: 5px;
+          opacity: 0.5;
+         pointer-events: none;
+        }
+        
+        
+        
+        
+@media only screen and (max-width: 800px) { 
+    form {
+      width: 80%;
+    }
+    
+    #confirmDelete {
+      width: 80%;
+    }
+}
         
    
 
@@ -149,45 +232,137 @@
 </head>
 
 <body>
-   <form>
-        <div class="trite">
-          <img src="avartar.jpg" alt="Avatar" class="avartarr">
-   
-            <!-- The `multiple` attribute lets users select multiple files. -->
-
-            <input type="file" class="custom-file-input">
-        </div>
-          
-               
-        <label for="fname">FirstName</label>
-        <input type="text" placeholder="Firstname">
-        <label for="fname">LastName</label>
-        <input type="text" placeholder="Lastname">
-        <label for="fname">Username</label>
-        <input type="text" placeholder="Username">
-
-
-        <hr>
-                
-        <p class="para">your email address is <a href="#">sneezymoney@gmail.com</a> </p>
-
-            
-        <hr>
-
-
-                  
-        <p>Password <span style="font-weight: bold;">XXXX-XXXX-XXXX</span></p>
-        <div class="change"><a href="#">change</a></div>
-        
-        
-        <hr>
-        
-        
-         <a href="# ">Delete my account</a>
-         <button type="submit " class="button ">SAVE</button>
-       
+ 
+ <header>
+  <img id="logo" src="black.png" alt="fact-logo"> 
+  
+  <p id="verify">
+    <img src="unverified.png" alt="status" />
+    <span>unverified</span>
+  </p>
+ </header>
+ 
+ <main>
+    <img src="avartar.jpg" alt="Avatar" class="avartar">
            
-     </form>
+    <form>     
+       <input 
+       id="fileElem"
+       type="file" 
+       accept=".png, .jpeg, .jpg"
+       class="visually-hidden"/>
+       <label id="browse" for="fileElem"/> 
+       change avatar</label>
+       <span> (no chosen file)</span>
+       
+      <br/>
+      <br/>
+      <br/>
+      
+      <label for="fname">FirstName:</label>
+      <input type="text" value="Ahmad">
+      
+      <label for="fname">LastName:</label>
+      <input type="text" value="Gbolahan">
+      
+      <label for="fname">Username:</label>
+      <input type="text" value="Sneezy">
+      
+      <button type="submit " class="button ">SAVE</button>
+    </form>
+
+        <hr id="first"/>
+                
+        <p id="email" class="para">
+          Your email address is 
+          <span>sneezymoney@gmail.com</span> 
+        </p>
+
+        <hr>
+        
+        <p id="pass" class="para">
+          Password:
+        <span>XXXX-XXXX-XXXX </span>
+        <a href="#">change</a>
+        </p>
+        
+        <hr>
+        
+        <p id="delete" class="para"><span>Delete my account</span></p>
+        
+        
+        <form id="confirmDelete" action="" method="get" onsubmit="return validateForm()">
+          
+          <p id="info">Type your username below to delete account </p>
+          <p id="error"> Username mismatch </p>
+          <input type="text" placeholder="Enter Username" />
+          <button>Delete Account</button>
+          
+        </form>
+         
+   </main>    
+   
+   
+           
+  <script>
+  
+  const _delete = document.querySelector("#delete > span");
+  const _form = document.querySelector("#confirmDelete");
+  const _input = document.querySelector("#confirmDelete > input");
+  const _button = document.querySelector("#confirmDelete > button");
+  const error = document.querySelector("#error");
+  
+  
+  
+  let elemArray = [_form, _delete];
+  for (let elem of _form.children) {
+    elemArray.push(elem);
+  }
+  
+  
+  
+  document.addEventListener('click', (e) => {
+      let elem = e.target;
+
+      if (elemArray.includes(elem)) {
+        _form.style.visibility = "visible";
+        _input.focus();
+        return;
+      }
+      _form.style.visibility = "hidden";
+  });
+  
+  
+  
+  _input.addEventListener('input', () => {
+     error.style.display = "none";
+     
+     if (_input.value.length >= 1) {
+       _button.style.pointerEvents = "auto";
+       _button.style.opacity = 1;
+       return;
+     }
+     _button.style.pointerEvents = "none";
+     _button.style.opacity = 0.5;
+  });
+  
+  
+  
+  
+  const username = "Sneezy";
+  
+  function validateForm() {
+     if (_input.value == username) {
+       return true;
+     } else {
+       error.style.display = "block";
+       return false;
+     }
+  }
+  
+  
+  
+  </script>
 
   
 </body>
