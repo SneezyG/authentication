@@ -10,7 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
+from dotenv import load_dotenv
 from pathlib import Path
+
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,24 +25,55 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-7h2^=^hqz^*u%thwcq846lt#%3weg4i7ccx(s)#6)udh5$rd4_'
+SECRET_KEY = os.getenv('secret')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = ['*']
+
+
+AUTH_USER_MODEL = "app.User"
+
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.AllowAllUsersModelBackend'
+]
+ 
+X_FRAME_OPTIONS = "SAMEORIGIN"
+SILENCED_SYSTEM_CHECKS = ["security.W019"]
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+PASSWORD_RESET_TIMEOUT = 3 * 60
+
+
+
+#django email verifier config
+EXPIRE_AFTER = "10m" 
+MAX_RETRIES = 10
+REQUEST_NEW_EMAIL_TEMPLATE = BASE_DIR / 'app/templates/verify_form.html'
+HTML_MESSAGE_TEMPLATE = BASE_DIR / 'app/templates/verify_email.html'
+VERIFICATION_SUCCESS_TEMPLATE = BASE_DIR / 'app/templates/success.html'
+VERIFICATION_FAILED_TEMPLATE = BASE_DIR / 'app/templates/verify_failed.html'
+LINK_EXPIRED_TEMPLATE = BASE_DIR / 'app/templates/verify_expire.html'
+NEW_EMAIL_SENT_TEMPLATE  = BASE_DIR / 'app/templates/success.html'
+
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    'app.apps.AppConfig',
+    'verify_email.apps.VerifyEmailConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -100,6 +136,20 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
+#Email config
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.getenv("user")
+EMAIL_HOST_PASSWORD = os.getenv("pass")
+EMAIL_USE_SSL = False
+
+
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -115,7 +165,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
+STATIC_ROOT = 'static/'
 STATIC_URL = 'static/'
+
+MEDIA_ROOT = 'media/'
+MEDIA_URL = 'media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
