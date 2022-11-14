@@ -21,6 +21,7 @@
          background-color: #6589c4;
          position: fixed;
          width: 100%;
+         z-index: 1;
        }
         
        #logo {
@@ -79,7 +80,7 @@
             width: 80%;
             margin: 0;
             padding: 10px 0px 0px 10px;
-            font-size: 16px;
+            font-size: 15px;
         }
         
         .avartar {
@@ -119,6 +120,19 @@
        input.visually-hidden:is(:focus, :focus-within) + label {
          outline: thin dotted;
         }
+        
+        #filename {
+          display: inline-block;
+          max-width: 100px;
+          resize: both;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          position: relative;
+          top: 3px;
+          z-index: 0;
+        }
+       
     
        #browse {
          cursor: pointer;
@@ -164,6 +178,7 @@
         
         #email > span {
           color: #112d60;
+          font-size: 17px;
         }
         
         
@@ -190,7 +205,7 @@
         #info {
           margin: 0 0 10px 0;
           padding: 0;
-          font-size: 15px;
+          font-size: 14px;
         }
         
         #error {
@@ -234,7 +249,7 @@
 <body>
  
  <header>
-  <img id="logo" src="black.png" alt="fact-logo"> 
+  <img id="logo" src="white.png" alt="fact-logo"> 
   
   <p id="verify">
     <img src="unverified.png" alt="status" />
@@ -253,8 +268,9 @@
        class="visually-hidden"/>
        <label id="browse" for="fileElem"/> 
        change avatar</label>
-       <span> (no chosen file)</span>
-       
+       <span> ( </span>
+       <span id="filename"> no chosen file</span>
+       <span> ) </span>
       <br/>
       <br/>
       <br/>
@@ -311,9 +327,20 @@
   const _input = document.querySelector("#confirmDelete > input");
   const _button = document.querySelector("#confirmDelete > button");
   const error = document.querySelector("#error");
+  const filename = document.querySelector("#filename");
+  const fileElem = document.querySelector("#fileElem");
   
   
   
+  fileElem.addEventListener('input', () => {
+    let fileList = fileElem.files;
+    let file = fileList[0];
+    filename.innerHTML = file ? file.name : "no chosen file";
+  });
+  
+  
+
+
   let elemArray = [_form, _delete];
   for (let elem of _form.children) {
     elemArray.push(elem);
