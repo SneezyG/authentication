@@ -2,33 +2,14 @@ from django.shortcuts import render
 from django.views import View
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import UpdateView
-from django.urls import reverse
 from .models import User
 from .form import UserForm
-from django.http import HttpResponse, HttpResponseRedirect
-from verify_email.email_handler import send_verification_email
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 
 # Create your views here.
 
-
-
-
-class testingA(TemplateView):
-  template_name = "password_reset_email.html"
-  
-
-class testingB(View):
-  form_class = UserForm
-  initial = {'key': 'value'} 
-  template = 'password_reset_email.html'
-  
-  def get(self, request, *args, **kwargs):
-    #raise notfound
-    form = self.form_class(initial= self.initial)
-    return render(request, self.template, {'form': form})
   
   
   
@@ -36,7 +17,7 @@ class testingB(View):
 class signUp(View):
 
   """
-  this view return a signup page on get request, register a user on post request and send a verification link.
+  this view return a signup page on get request, register a user on post request.
   """
   
   form_class = UserForm
@@ -55,14 +36,14 @@ class signUp(View):
      form = self.form_class(request.POST)
      email = request.POST['email']
      password = request.POST['password']
+     username = request.POST['username']
      
      if form.is_valid():
-        inactive_user = send_verification_email(request, form)
-       
+        User.objects.create_user(username, email, password)
         user = authenticate(request, email=email, password=password)
         login(request, user)
         
-        text = "your account have been created, and account activation link have been sent to your email."
+        text = "your account have been created successfully and your account logged in"
         
         messages.info(request, text)
         return render(request, self.success)
@@ -84,7 +65,7 @@ class success(TemplateView):
   template_name = 'success.html'
   
   def get(self, request, *args, **kwargs):
-    try:
+   
       url = request.headers['REFERER']
       items = url.rsplit('/')
       referrer = items[-2]
@@ -92,32 +73,23 @@ class success(TemplateView):
       if referrer == "update_profile":
         text = "Profile updated successfully."
         
-      elif referrer == "password_change":
+      else referrer == "password_change":
         logout(request)
         text = "your password have been change successfully."
         
-      elif referrer == "password_reset":
-        text = "link to change your password have been sent to your email."
-        
-      else:
-        raise KeyError()
-        
-    except:
-      text = "your password have been reset successfully."
-      
-    messages.info(request, text)
-    return super().get(request, *args, **kwargs)
+      messages.info(request, text)
+      return super().get(request, *args, **kwargs)
   
 
 
 class profile(UpdateView):
   
   """
-  this view update the user profile.
+  this view display and update the user profile.
   """
   
   model = User
-  fields = ["username", "first_name", "last_name", "avater", "phone"]
+  fields = ["username", "first_name", "last_name", "avatar"]
   template_name = "profile.html"
   success_url = '/success/'
   
@@ -134,7 +106,7 @@ class profile(UpdateView):
 class deleteAcc(TemplateView):
   
   """
-  this view log a user out and delete the account.
+  this view log a user out and deactivate the user account.
   """
   template_name = 'delete_acc.html'
   

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 
@@ -38,12 +39,20 @@
        
        #verify > img {
          width: 20px;
+         transform: scale(2);
        }
        
        #verify > span {
          position: relative;
          bottom: 5px;
          font-size: 13px;
+         color: white;
+       }
+       
+       #logout {
+         text-decoration: underline;
+         position: absolute;
+         right: 10%;
        }
         
         main {
@@ -83,7 +92,7 @@
             font-size: 15px;
         }
         
-        .avartar {
+        #profilepic {
             width: 120px;
             border-radius: 50px;
             margin-bottom: 10px;
@@ -91,12 +100,10 @@
         
       
         
-        input[type=text],
-        input[type=email],
-        input[type=password] {
+        input[type=text] {
             display: block;
             width: 100%;
-            font-size: 14px;
+            font-size: 15px;
             background-color: #f7f7f8;
             border: none;
             border-bottom: 1px solid rgb(155, 153, 153);
@@ -108,7 +115,7 @@
             outline: none;
         }
         
-        .visually-hidden {
+        #id_avatar {
           position: absolute !important;
           background-color: red;
           height: 1px;
@@ -117,7 +124,7 @@
           clip: rect(1px, 1px, 1px, 1px);
         }
 
-       input.visually-hidden:is(:focus, :focus-within) + label {
+       input.#id_avatar:is(:focus, :focus-within) + label {
          outline: thin dotted;
         }
         
@@ -249,40 +256,48 @@
 <body>
  
  <header>
-  <img id="logo" src="white.png" alt="fact-logo"> 
+   <img id="logo" src="{% static 'app/logo/white.png' %}", alt="fact"> 
   
   <p id="verify">
-    <img src="unverified.png" alt="status" />
-    <span>unverified</span>
+    <img src="{% static 'app/images/verified.png' %}" alt="status" />
+    <span>Active</span>
   </p>
  </header>
  
+ 
  <main>
-    <img src="avartar.jpg" alt="Avatar" class="avartar">
+    <span id="logout"><a href="{% url "app:logout" %}">Log out</a></span>
+
+
+    <img src="{{ user.object.avatar.url|default:'/static/app/images/avartar.jpg' }}" alt="Avatar" id="profilepic">
            
-    <form>     
-       <input 
-       id="fileElem"
-       type="file" 
-       accept=".png, .jpeg, .jpg"
-       class="visually-hidden"/>
-       <label id="browse" for="fileElem"/> 
+    <form action="{% url "app:profileupdate" %}" method="post">    
+    
+             {% csrf_token %}
+      
+     {{ form.avatar.errors }}
+       {{ form.avatar }}
+       <label id="browse" for="{{ form.avater.id_for_label }}"/> 
        change avatar</label>
        <span> ( </span>
-       <span id="filename"> no chosen file</span>
+       <span id="filename">{{ user.object.avatar.name|default:"no chosen file" }}</span>
        <span> ) </span>
+       
       <br/>
       <br/>
       <br/>
       
-      <label for="fname">FirstName:</label>
-      <input type="text" value="Ahmad">
+      <label id="label" data-username="{{ user.object.username }}" for="{{ form.username.id_for_label }}">Username:</label>
+          {{ form.username.errors }}
+           {{ form.username }}
       
-      <label for="fname">LastName:</label>
-      <input type="text" value="Gbolahan">
+      <label for="{{ form.first_name.id_for_label }}">Firstname:</label>
+          {{ form.first_name.errors }}
+            {{ form.first_name }}
       
-      <label for="fname">Username:</label>
-      <input type="text" value="Sneezy">
+      <label for="{ form.last_name.id_for_label }}">Lastname:</label>
+          {{ form.last_name.errors }}
+           {{ form.last_name }}
       
       <button type="submit " class="button ">SAVE</button>
     </form>
@@ -291,7 +306,7 @@
                 
         <p id="email" class="para">
           Your email address is 
-          <span>sneezymoney@gmail.com</span> 
+          <span>{{ user.object.username }}</span> 
         </p>
 
         <hr>
@@ -299,7 +314,7 @@
         <p id="pass" class="para">
           Password:
         <span>XXXX-XXXX-XXXX </span>
-        <a href="#">change</a>
+        <a href="{% url "app:password_change" %}">change</a>
         </p>
         
         <hr>
@@ -307,7 +322,7 @@
         <p id="delete" class="para"><span>Delete my account</span></p>
         
         
-        <form id="confirmDelete" action="" method="get" onsubmit="return validateForm()">
+        <form id="confirmDelete" action="{% url "app:deleteacc" %}" method="get" onsubmit="return validateForm()">
           
           <p id="info">Type your username below to delete account </p>
           <p id="error"> Username mismatch </p>
@@ -328,8 +343,12 @@
   const _button = document.querySelector("#confirmDelete > button");
   const error = document.querySelector("#error");
   const filename = document.querySelector("#filename");
-  const fileElem = document.querySelector("#fileElem");
+  const fileElem = document.querySelector("#id_avatar");
+  const username = document.querySelector("#label").dataset.username.toLowerCase();
+ // console.log(username);
   
+  
+
   
   
   fileElem.addEventListener('input', () => {
@@ -376,10 +395,9 @@
   
   
   
-  const username = "Sneezy";
   
   function validateForm() {
-     if (_input.value == username) {
+     if (_input.value.toLowerCase() == username) {
        return true;
      } else {
        error.style.display = "block";

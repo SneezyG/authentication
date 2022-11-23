@@ -169,21 +169,21 @@ input:focus{
 </head>
 <body>
 
-  <img id="logo" src="{% static 'app/logo/white.png'%}", alt="VTUme"> 
+  <img id="logo" src="{% static 'app/logo/white.png'%}", alt="Fact"> 
 
   <div class="flex-container">
         <div class="container">
             <form action="/accounts/login/?next={{next}}" method='post'>
               {% csrf_token %}
                 <div >
-                  <h3>Sign in to VTU</h3>
+                  <h3>Sign in to Fact</h3>
                   <p>Don't have an account,click <a href="{% url "app:signup" %}">here</a> to Sign Up</p>
                   <br>
                    {{form}}
                    <br>
                   <br>
                   <div>
-                    <input id="show" type="checkbox" name="remember"><span style="font-size: 14px;">show password</span><div style="float:right;padding-right: 3px;font-size: 15px;"><a href="{% url "app:password_reset" %}">Forgot Password?</a></div>
+                    <input id="show" type="checkbox" name="remember"><span style="font-size: 14px;">show password</span>
                 </div>
                 
                     <input type="submit" class="button" value="login">

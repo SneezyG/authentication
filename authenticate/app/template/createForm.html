@@ -224,7 +224,7 @@ input:focus{
                   <br>
                   <br>
                   <label>
-                    <input type="checkbox" checked="checked" name="remember">
+                    <input type="checkbox" checked="checked" name="remember" disabled>
                     <span id="cond">I agree to all statements in <a href="#">Terms of service</a>
                     </span>
                   </label>   
@@ -270,13 +270,13 @@ function validator(value) {
      return false;
    }
    
-   findA = patternA.test(value);
+   let findA = patternA.test(value);
    if (!findA) {
      help.style.color= "red";
      return false;
    }
    
-   findB = patternB.test(value);
+   let findB = patternB.test(value);
    if (!findB) {
      help.style.color= "red";
      return false;

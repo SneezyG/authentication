@@ -1,2 +1,2 @@
 # authentication
-An authentication system with django
+An authentication system with django.

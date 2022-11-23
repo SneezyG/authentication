@@ -37,27 +37,10 @@ ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = "app.User"
 
-
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.AllowAllUsersModelBackend'
-]
  
 X_FRAME_OPTIONS = "SAMEORIGIN"
 SILENCED_SYSTEM_CHECKS = ["security.W019"]
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-PASSWORD_RESET_TIMEOUT = 3 * 60
-
-
-
-#django email verifier config
-EXPIRE_AFTER = "10m" 
-MAX_RETRIES = 10
-REQUEST_NEW_EMAIL_TEMPLATE = BASE_DIR / 'app/templates/verify_form.html'
-HTML_MESSAGE_TEMPLATE = BASE_DIR / 'app/templates/verify_email.html'
-VERIFICATION_SUCCESS_TEMPLATE = BASE_DIR / 'app/templates/success.html'
-VERIFICATION_FAILED_TEMPLATE = BASE_DIR / 'app/templates/verify_failed.html'
-LINK_EXPIRED_TEMPLATE = BASE_DIR / 'app/templates/verify_expire.html'
-NEW_EMAIL_SENT_TEMPLATE  = BASE_DIR / 'app/templates/success.html'
 
 
 
@@ -65,7 +48,6 @@ NEW_EMAIL_SENT_TEMPLATE  = BASE_DIR / 'app/templates/success.html'
 
 INSTALLED_APPS = [
     'app.apps.AppConfig',
-    'verify_email.apps.VerifyEmailConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -133,19 +115,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-
-
-#Email config
-
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = os.getenv("user")
-EMAIL_HOST_PASSWORD = os.getenv("pass")
-EMAIL_USE_SSL = False
-
 
 
 

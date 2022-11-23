@@ -2,9 +2,8 @@ import re
 from django.forms import ModelForm
 from .models import User
 from django import forms
-from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
-from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, SetPasswordForm
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 
@@ -32,8 +31,6 @@ def custom_validator(value):
 
 
 
-
-
 class PasswordChange(PasswordChangeForm):
   
   """
@@ -45,41 +42,7 @@ class PasswordChange(PasswordChangeForm):
   new_password2 = forms.CharField(widget=forms.PasswordInput, label="New password confirmation", validators=[custom_validator,])
   
   
-
-
-
-
-
-
-class PasswordConfirm(SetPasswordForm):
   
-  """
-  this form class extend build in PasswordChangeForm with a customized password validator.
-  """
-  
-  new_password1 = forms.CharField(widget=forms.PasswordInput, label="New password", validators=[custom_validator,])
-  
-  new_password2 = forms.CharField(widget=forms.PasswordInput, label="New password confirmation", validators=[custom_validator,])
-  
-    
-  
-  
-  
-
-
-
-
-
-class AllAuthenticationForm(AuthenticationForm):
-  
-  """
-  overide the default authentication form for my login view
-  """
-  
-  def confirm_login_allowed(self, user):
-    pass
-
-
 
 
 

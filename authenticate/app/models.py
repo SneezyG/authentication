@@ -12,7 +12,7 @@ def path(instance, filename):
 class User(AbstractUser):
   
   """
-  store a single user date.
+  store a single user data.
   inherit the django abstract user class.
   and this model is the new auth_user_model
   """
