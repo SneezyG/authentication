@@ -5,7 +5,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<title>sign in</title>
+<title>SignIn</title>
 <style>
     .fa {
   padding: 20px;
@@ -48,9 +48,8 @@
       
     #logo {
       width: 50px;
-      height: 50px;
       margin: 40px 0 0 10%;
-      transform: scale(3);
+      transform: scale(2);
     }
     
      label {
@@ -173,7 +172,7 @@ input:focus{
 
   <div class="flex-container">
         <div class="container">
-            <form action="/accounts/login/?next={{next}}" method='post'>
+            <form action="{% url "app:login" %}" method='post'>
               {% csrf_token %}
                 <div >
                   <h3>Sign in to Fact</h3>

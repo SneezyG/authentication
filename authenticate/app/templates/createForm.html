@@ -5,7 +5,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-<title>layout</title>
+<title>SignUp</title>
 <style>
     html,body{
         margin: 0;
@@ -16,9 +16,8 @@
     
     #logo {
       width: 50px;
-      height: 50px;
       margin: 40px 0 0 10%;
-      transform: scale(3);
+      transform: scale(2);
     }
     
     label {
@@ -119,28 +118,9 @@ input:focus{
   transition-duration: 0.4s;
   text-decoration: none;
   overflow: hidden;
-  cursor: pointer;
 }
 
-.button:after {
-  content: "";
-  background: #B6C0C5;
-  display: block;
-  position: absolute;
-  padding-top: 300%;
-  padding-left: 350%;
-  margin-left: -20px!important;
-  margin-top: -120%;
-  opacity: 0;
-  transition: all 0.8s
-}
 
-.button:active:after {
-  padding: 0;
-  margin: 0;
-  opacity: 1;
-  transition: 0s
-}
 
 #togglePassword {
   cursor: pointer; 
@@ -237,7 +217,7 @@ input:focus{
         </div>
     </div>
   
-    <script>
+ <script>
     
 const togglePassword = document.querySelector('#togglePassword');
 const password = document.querySelector('#id_password');
@@ -245,6 +225,7 @@ const repeat = document.querySelector('#passRepeat');
 const help = document.querySelector("#help");
 const confirm = document.querySelector('#confirmerror');
 confirm.style.display= "none";
+
 
 
 function validateForm() {

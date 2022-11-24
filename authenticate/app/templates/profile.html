@@ -5,7 +5,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.css">
-    <title>dashboard</title>
+    <title>User Profile</title>
     
     <style>
     
@@ -93,12 +93,11 @@
         }
         
         #profilepic {
-            width: 120px;
-            border-radius: 50px;
+            width: 135px;
+            height: 140px;
+            border-radius: 70px;
             margin-bottom: 10px;
         }
-        
-      
         
         input[type=text] {
             display: block;
@@ -267,27 +266,37 @@
  
  <main>
     <span id="logout"><a href="{% url "app:logout" %}">Log out</a></span>
-
-
-    <img src="{{ user.object.avatar.url|default:'/static/app/images/avartar.jpg' }}" alt="Avatar" id="profilepic">
+   
+    <img src="
+    {% if user.avatar %}
+    {{ user.avatar.url }}
+    {% else %}
+    /static/app/images/avartar.jpg
+    {% endif %}
+    " alt="Avatar" id="profilepic">
            
-    <form action="{% url "app:profileupdate" %}" method="post">    
-    
-             {% csrf_token %}
+    <form action="{% url "app:profileupdate" user.id %}" method="post" enctype="multipart/form-data">
+     {% csrf_token %}
       
      {{ form.avatar.errors }}
        {{ form.avatar }}
-       <label id="browse" for="{{ form.avater.id_for_label }}"/> 
-       change avatar</label>
+       <label id="browse" for="{{ form.avatar.id_for_label }}"/> 
+       select avatar</label>
        <span> ( </span>
-       <span id="filename">{{ user.object.avatar.name|default:"no chosen file" }}</span>
-       <span> ) </span>
+       <span id="filename">   
+       {% if user.avatar %}
+        {{ user.avatar.name }}
+        {% else %}
+        no chosen file
+        {% endif %}
+      </span>
+      <span> ) </span>
        
       <br/>
       <br/>
       <br/>
       
-      <label id="label" data-username="{{ user.object.username }}" for="{{ form.username.id_for_label }}">Username:</label>
+      <label id="label" data-username="{{ user.username }}" for="{{ form.username.id_for_label }}">Username:</label>
           {{ form.username.errors }}
            {{ form.username }}
       
@@ -306,7 +315,7 @@
                 
         <p id="email" class="para">
           Your email address is 
-          <span>{{ user.object.username }}</span> 
+          <span>{{ user.email }}</span> 
         </p>
 
         <hr>

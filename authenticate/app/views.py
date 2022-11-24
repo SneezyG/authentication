@@ -6,6 +6,9 @@ from .models import User
 from .form import UserForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.contrib.auth.forms import AuthenticationForm
+from django.urls import reverse
 
 
 # Create your views here.
@@ -26,7 +29,7 @@ class signUp(View):
   success = 'success.html'
   
   
-  def get(self, request, *args, **kwarargs):
+  def get(self, request, *args, **kwargs):
     form = self.form_class(initial= self.initial)
     return render(request, self.template, {'form': form})
     
@@ -43,11 +46,7 @@ class signUp(View):
         user = authenticate(request, email=email, password=password)
         login(request, user)
         
-        text = "your account have been created successfully and your account logged in"
-        
-        messages.info(request, text)
-        return render(request, self.success)
-          
+        return HttpResponseRedirect('/success/')
        
      return render(request, self.template, {'form': form})
        
@@ -56,31 +55,67 @@ class signUp(View):
 
  
  
-class success(TemplateView):
+class success(View):
   
   """
   this return the success page.
   """
   
-  template_name = 'success.html'
+  template = 'success.html'
   
   def get(self, request, *args, **kwargs):
    
       url = request.headers['REFERER']
+      pk = request.user.id
       items = url.rsplit('/')
       referrer = items[-2]
-      
-      if referrer == "update_profile":
-        text = "Profile updated successfully."
         
-      else referrer == "password_change":
+      if referrer == "password_change":
         logout(request)
         text = "your password have been change successfully."
         
+      elif referrer == "signup":
+        text = "your account have been created successfully and your account logged in."
+       
+      else:
+        text = "Profile updated successfully."
+        
       messages.info(request, text)
-      return super().get(request, *args, **kwargs)
+      return render(request, self.template, {'pk':pk})
   
 
+
+
+class logIn(View):
+  """
+  this view authenticate and log the user in.
+  """
+  
+  form_class = AuthenticationForm
+  initial = {'key': 'value'}
+  template = 'loginForm.html'
+  
+  def get(self, request, *args, **kwargs):
+    if request.user.id:
+      return HttpResponseRedirect(reverse('app:profileupdate', args=(request.user.id,)))
+    form = self.form_class(initial= self.initial)
+    return render(request, self.template, {'form': form})
+
+  def post(self, request, *args, **kwargs):
+    form = self.form_class(request, request.POST)
+    email = request.POST['username']
+    password = request.POST['password']
+    
+    if form.is_valid():
+        user = authenticate(request, email=email, password=password)
+        login(request, user)
+        return HttpResponseRedirect(reverse('app:profileupdate', args=(user.id,)))
+        
+        
+    return render(request, self.template, {'form': form})
+       
+  
+  
 
 class profile(UpdateView):
   
@@ -92,13 +127,9 @@ class profile(UpdateView):
   fields = ["username", "first_name", "last_name", "avatar"]
   template_name = "profile.html"
   success_url = '/success/'
+ 
   
-  def get(self, request, *args, **kwargs):
-    self.object = request.user
-    return super().get(request, *args, **kwargs)
-    
-  def get_object(self):
-    return self.object
+
     
     
 
@@ -111,9 +142,8 @@ class deleteAcc(TemplateView):
   template_name = 'delete_acc.html'
   
   def get(self, request, *args, **kwargs):
-    user = request.user
-    user.set_unusable_password()
-    user.save()
+    pk = request.user.id
+    User.objects.get(pk=pk).delete()
     logout(request)
     return super().get(request, *args, **kwargs)
   

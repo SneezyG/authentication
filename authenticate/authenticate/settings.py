@@ -53,7 +53,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.forms',
 ]
+
+# overiding form setting.
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
 
 MIDDLEWARE = [
